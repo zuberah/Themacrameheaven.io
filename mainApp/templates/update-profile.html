@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+{% block title %}
+<title>Essence - Fashion world | Update profile</title>
+{% endblock %}
+{% block body %}
+<div class="container-fluid w-100 my-5 p-5">
+    <div class="center m-auto border p-5" style="width: 85%;">
+        <h4 class="text-center"><span class="text-primary" style="font: size 40px;">Update</span> your profile</h4>
+        {% if messages %}
+            {% for m in messages %}
+            <div class="alert alert-danger text-center alert-dismissible fade show" role="alert">
+                {{m}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        <form action="/update-profile/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Fullname</label>
+                    <input type="text"required class="form-control" name='name' id='name' placeholder="Enter Full name" value="{{data.name}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="pic" class="form-label">pic</label>
+                    <input type="file"required class="form-control" name='pic' id='pic'>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email"required class="form-control" name='email' id='email' placeholder="Enter Email"value="{{data.email}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="text"required class="form-control" name='phone' id='phone' placeholder="Enter Phone number"value="{{data.phone}}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="addressline1" class="form-label">Address line 1</label>
+                    <input type="text" class="form-control" name='addressline1' id='addressline1' placeholder="Enter your house no, floor number"value="{{data.addressline1}}">
+                </div>
+                <div class="col-md-6"> 
+                    <label for="addressline2" class="form-label">Address line 2</label>
+                    <input type="text" class="form-control" name='addressline2' id='addressline2' placeholder="Enter street no or nearby"value="{{data.addressline2}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="addressline3" class="form-label">Address line 3</label>
+                    <input type="text" class="form-control" name='addressline3' id='addressline3' placeholder="Enter village or locality"value="{{data.addressline3}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="pin" class="form-label">Pin code</label>
+                    <input type="text" class="form-control" name='pin' id='pin' placeholder="Enter your Pin code"value="{{data.pin}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" name='city' id='city'
+                        placeholder="Enter your city"value="{{data.city}}">
+                </div>
+                <div class="col-md-6">
+                    <label for="state" class="form-label">State</label>
+                    <input type="state" class="form-control" name='state' id='state' placeholder="Enter your state "value="{{data.state}}">
+                </div>
+                
+            </div>
+            <div class="w-100 mt-3">
+                <button type= "submit" class="btn btn-primary w-100">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

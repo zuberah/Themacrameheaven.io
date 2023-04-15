@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% block title %}
+<title>Essence - Fashion world | Login</title>
+{% endblock %}
+{% block body %}
+<div class="container-fluid w-100 my-5 p-5">
+    <div class="center w-50 m-auto border p-5">
+        <h3 class="text-center"><span class="text-primary" style="font: size 40px;">Login</span> to your account</h3>
+        {% if messages %}
+        {% for m in messages %}
+        <div class="alert alert-danger text-center alert-dismissible fade show" role="alert">
+            {{m}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <form action="/login/" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name='username' id='username' placeholder="Enter your username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="text" class="form-control" name='password' id='password' placeholder="Enter your password">
+            </div>
+            <div class="mb-3">
+                <button type = "submit" class="btn btn-primary w-100">Login</button>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="/forgot-1/">Forgot Password</a>
+                <a href="/signup/">Create an account</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

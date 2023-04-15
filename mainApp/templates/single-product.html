@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% block title %}
+<title>Essence - Fashion world | product</title>
+{% endblock %}
+{% block body %}
+
+<!-- ##### Single Product Details Area Start ##### -->
+<section class="single_product_details_area d-flex align-products-center">
+
+    <!-- Single Product Thumb -->
+    <div class="single_product_thumb clearfix">
+        <div class="product_thumbnail_slides owl-carousel">
+
+            <img src="{{product.pic1.url}}" style="height:350px" alt="no image">
+
+
+        </div>
+    </div>
+
+    <!-- Single Product Description -->
+    <div class="col-md-3">
+        <div class="single_product_desc clearfix margin-left=32px">
+            <span>
+                <h2>{{product.maincategory}}/{{product.subcategory}}</h2>
+            </span>
+            <a href="cart.html">
+                <h3>{{product.name}}</h3>
+            </a>
+            <p class="product-price"><span class="old-price"><del>&#8377;{{product.baseprice}}</del></span> now @
+                <span>&#8377;{{product.finalprice}}</span> only
+            </p>
+            <p class="product-price">Discount {{product.discount}}% off</p>
+            <p class="product-desc">{{product.description}}</p>
+            <p class="product-desc d-flex justify-content-between">
+                <span>Color: <span class="text-dark">{{product.color}}</span></span><span>Size: <span
+                        class="text-dark">{{product.size}}</span></span>
+                {% if product.stock %}
+                <span class="text-success">In Stock</span>
+
+                {% else %}
+                <span>stock : Out of Stock</span>
+                {% endif %}
+            </p>
+            <form class="cart-form clearfix" method="post">
+                <div class="cart-fav-box d-flex align-products-center">
+
+                    <a type="submit" href="/add-to-cart/{{product.id}}/" name="addtocart" value="5"
+                        class="btn btn-success mb-3">Add to cart</a>
+
+                    <!-- Favourite -->
+
+                    <div class="product-favourite ml-4">
+                        <a href="/add-to-wishlist/{{product.id}}/" class="favme fa fa-heart text-secondary "
+                            style="margin-left: 20px;">Add to
+                            wishlist</a>
+                    </div>
+                    <div class="mb-3 mx-2 ">
+                        <button href="/" class="btn btn-success">Home</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+{% endblock %}
+<!-- ##### Single Product Details Area End ##### -->
+
+<!-- ##### Footer Area Start ##### -->

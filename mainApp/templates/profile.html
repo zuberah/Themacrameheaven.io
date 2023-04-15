@@ -1,0 +1,98 @@
+{% extends 'index.html' %}
+{% block title %}
+<title>Essence - Fashion world | contact</title>
+{% endblock %}
+{% block body%}
+<div class="container fluid py-3">
+    
+        <div class="row">
+            <div class="col-md-6">
+                
+                {% if data.pic %}
+                <img src="{{data.pic.url}}" height="500px" width="100%" alt="">
+                {% else %}
+                <img src="/static/img/core-img/noimage.jpg" height="500px" width="100%" alt="">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>name</th>
+                        <td>{{data.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>username</th>
+                        <td>{{data.username}}</td>
+                    </tr>
+                    <tr>
+                        <th>email</th>
+                        <td>{{data.email}}</td>
+                    </tr>
+                    <tr>
+                        <th>phone</th>
+                        <td>{{data.phone}}</td>
+                    </tr>
+                    <var>
+                        <tr>
+                            <th>addressline 1</th>
+                            <td>{{data.addressline1}}</td>
+                        </tr>
+                        <tr>
+                            <th>addresline 2</th>
+                            <td>{{data.addressline2}}</td>
+                        </tr>
+                        <tr>                        </tr>
+                        <tr>
+                            <th>addressline 3 </th>
+                            <td>{{data.addressline3}}</td>
+                        </tr>
+                        <tr>
+                            <th>PIN</th>
+                            <td>{{data.pin}}</td>
+                        </tr>
+                        <tr>
+                            <th>CITY</th>
+                            <td>{{data.city}}</td>
+                        </tr>
+                        <tr>
+                            <th>STATE</th>
+                            <td>{{data.state}}</td>
+                        </tr>
+                        <tr>
+                             <td colspan ="2"></tdcolspan> <a href="/update-profile/" class = "btn btn-primary w-100">Update profile</a>
+                        </tr>
+                    </var>
+                </table>
+            </div>
+        </div>
+    <h5 class="text-center">Wishlist section</h5>
+    <div class="table-responsive">
+        <table>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>maincategory</th>
+                <th>Subcategory</th>
+                <th>Brand</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Size</th>
+            </tr>
+            {% for item in wishlist %}
+            <tr>
+                <td><img src="{{item.product.pic1.url}}" alt=""></td>
+                <td>{{item.product.name}}</td>
+                <td>{{item.product.maincategory}}</td>
+                <td>{{item.product.Subcategory}}</td>
+                <td>{{item.product.Brand}}</td>
+                <td>{{item.product.Color}}</td>
+                <td>{{item.product.Size}}</td>
+                <td><del>&#877;{{item.product.basePrice}}</del><sup>&#8377;{{item.product.finalprice}} @{{item.product.discount}} Off</sup></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock%}
