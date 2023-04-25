@@ -30,4 +30,7 @@ urlpatterns = [
     path('place-order/', mainApp.placeOrder),
     path('confirmation/', mainApp.confirmationpage),
     path('add-to-wishlist/<int:num>/', mainApp.addToWishlist),
+    path('forget-1/',mainApp.forgetPasswordPage1),
+    path('forget-2/',mainApp.forgetPasswordPage2),
+    path('forget-3/',mainApp.forgetPasswordPage3),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

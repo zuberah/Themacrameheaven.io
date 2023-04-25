@@ -5,6 +5,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.core.mail import send_mail
+
+from random import randint  
+
 
 
 def home(Request):
@@ -379,5 +384,70 @@ def addToWishlist(Request,num):
             wish.save()
         return HttpResponseRedirect('/profile/')
 
+def forgetPasswordPage1(Request):
+    if(Request.method =="POST"):
+        username = Request.POST.get("username")
+        try:
+                user = User.objects.get(username = username)
+                if(user.is_superuser):
+                    return HttpResponseRedirect("/admin/")
+                else:
+                    Request.session["resetuser"] = username
+                    num = randint(10000, 999999)
+                    buyer = Buyer.objects.get(username=username)
+                    buyer.otp = num
+                    buyer.save()
+                    subject = 'OTP for reset password- Team The Hacrame Heaven'
+                    message = "OTP for password reset is "+str(num)+"\nNever share your OTP with anyone" 
+                    email_from = settings.EMAIL_HOST_USER
+                    recipient_list = [buyer.email, ]
+                    send_mail(subject, message, email_from, recipient_list)
+                    return HttpResponseRedirect("/forget-2/")
+        except:
+            messages.error(Request,"Invalid username")
+    return render(Request,"forget-1.html")
 
 
+def forgetPasswordPage2(Request):
+    username = Request.session.get("resetuser", None)
+    if (Request.method == "POST" and username):
+        otp = Request.POST.get("otp")
+        try:
+            buyer = Buyer.objects.get(username=username)
+            if(buyer.otp ==int(otp)):
+                Request.session["otp"]=otp
+                return HttpResponseRedirect("/forget-3/")
+            else:
+                messages.error(Request,"Invalid OTP")
+        except:
+            messages.error(Request, "Invalid username")
+    return render(Request, "forget-2.html")
+
+
+def forgetPasswordPage3(Request):
+    if(Request.method=="POST"):
+        resetuser = Request.session.get("resetuser",None)
+        otp = Request.session.get("otp",None)
+        if(resetuser and otp):
+            buyer = Buyer.objects.get(username=resetuser)
+            if(int(otp)==buyer.otp):
+                password = Request.POST.get("password")
+                cpassword = Request.POST.get("cpassword")
+                if(password!=cpassword):
+                    messages.error(Request,"password doesn't matched")
+                else:
+                    user = User.objects.get(username = resetuser)
+                    user.set_password(password)
+                    user.save()
+                    subject = 'Password reset sucessfully - Team The Hacrame Heaven'
+                    message = "Your password has been reset Successfully, Now you can login to your account"
+                    email_from = settings.EMAIL_HOST_USER
+                    recipient_list = [buyer.email, ]
+                    send_mail(subject, message, email_from, recipient_list)
+                    return HttpResponseRedirect("/login/")
+            else:
+                 messages.error(Request, "Request Unauthorized!!!")
+        else:
+            messages.error(Request,"Request Unauthorized!!!")
+
+    return render(Request, "forget-3.html")

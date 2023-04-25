@@ -14,6 +14,7 @@ class Buyer(models.Model):
     pin = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     pic = models.ImageField(upload_to="user")
+    otp = models.IntegerField(default=8898898)
 
     def __str__(self):
         return self.username+"/"+self.name+"/"+self.email
